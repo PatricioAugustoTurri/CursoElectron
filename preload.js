@@ -8,6 +8,4 @@ window.addEventListener('DOMContentLoaded', () => {
         replaceText(`${type}-version`, process.versions[type])
     }
 
-    const appVersion = document.getElementById('app-version')
-    appVersion.innerText = process.versions.node
 })

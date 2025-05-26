@@ -12,6 +12,20 @@
     We are using Node.js <span id="node-version"></span>,
     Chromium <span id="chrome-version"></span>,
     and Electron <span id="electron-version"></span>.
+    <button id="bottone">Invia</button>
+    <script>
+        const { ipcRenderer } = require('electron')
+
+        const bottone = document.getElementById("bottone");
+        bottone.addEventListener("click", () => {
+            //mandare evento ipc
+            ipcRenderer.send('chiudi', { nome: 'luca', cognome: 'rossi' })
+        })
+
+        ipcRenderer.on('risposta', (e, data) => {
+            console.log(data)
+        })
+    </script>
 </body>
 
 </html>
