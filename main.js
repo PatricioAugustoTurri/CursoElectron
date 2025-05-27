@@ -6,17 +6,16 @@ webp.grant_permission();
 let win
 
 const createWindow = () => {
-        win = new BrowserWindow({
-            width: 800,
-            height: 600,
-            frame: false,
-            transparent: true,
-            webPreferences: {
-                nodeIntegration: true,
-                contextIsolation: false,
-                preload: path.join(__dirname, "preload.js")
-            }
-        })
+    win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        frame: false,
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+            preload: path.join(__dirname, "preload.js")
+        }
+    })
 
     win.loadFile('index.html')
 }
@@ -31,4 +30,18 @@ ipcMain.on("send-image", () => {
         console.log(response)
         win.webContents.send("convert-image");
     });
+})
+
+ipcMain.on("minimize", () => {
+    win.minimize()
+})
+ipcMain.on("maximize", () => {
+    if (win.isMaximized()) {
+        win.restore()
+    } else {
+        win.maximize()
+    }   
+})
+ipcMain.on("close", () => {
+    win.close()
 })
