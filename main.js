@@ -6,17 +6,19 @@ webp.grant_permission();
 let win
 
 const createWindow = () => {
-    win = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
-            preload: path.join(__dirname, "preload.js")
-        }
-    })
+        win = new BrowserWindow({
+            width: 800,
+            height: 600,
+            frame: false,
+            transparent: true,
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false,
+                preload: path.join(__dirname, "preload.js")
+            }
+        })
 
-    win.loadFile("index.html")
+    win.loadFile('index.html')
 }
 
 app.whenReady().then(() => {
