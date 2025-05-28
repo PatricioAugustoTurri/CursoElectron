@@ -1,6 +1,11 @@
+const electron = require("electron")
 const { app, BrowserWindow, ipcMain, Menu, MenuItem, Tray, nativeImage } = require('electron');
 const path = require('path');
+const contextMenu = require('electron-context-menu').default
 
+contextMenu({
+    showSaveImageAs: true
+});
 
 let win
 let secondWin
@@ -22,7 +27,7 @@ const template = [
             { label: "Quit", click: () => mandaEvento }
         ]
     },
-    { label: "Quit", role: "minimize" }
+    { label: "Quit", role: "quit" }
 ]
 
 const menu = Menu.buildFromTemplate(template)
@@ -57,7 +62,7 @@ app.whenReady().then(() => {
     tray.setContextMenu(contextMenu)
     tray.setToolTip("tool tip")
     tray.setTitle("title")
-    tray.on ("double-click",()=>{
+    tray.on("double-click", () => {
         win.show()
     })
 })
@@ -82,3 +87,4 @@ function mandaEvento() {
     })
     secondWin.loadFile("form.html")
 }
+
