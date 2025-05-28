@@ -1,15 +1,35 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu, MenuItem } = require('electron');
 const path = require('path');
-const webp = require('webp-converter');
-webp.grant_permission();
 
 let win
+
+const template = [
+    { label: "prova", click: mandaEvento },
+    {
+        label: "About",
+        submenu: [
+            {
+                label: "About",
+                submenu: [
+                    { label: "About", accelerator: "Alt+Ctrl+A", id: "about" },
+                    { label: "About" }
+                ]
+            },
+            { type: "separator" },
+            { label: "Quit", click: () => mandaEvento }
+        ]
+    },
+    { label: "Quit", role: "minimize" }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
 const createWindow = () => {
     win = new BrowserWindow({
         width: 800,
         height: 600,
-        frame: false,
+        frame: true,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -24,24 +44,8 @@ app.whenReady().then(() => {
     createWindow()
 })
 
-ipcMain.on("send-image", () => {
-    const result = webp.cwebp("_R001096.jpg", "_R001096.webp", "-q 80", logging = "-v");
-    result.then((response) => {
-        console.log(response)
-        win.webContents.send("convert-image");
-    });
-})
-
-ipcMain.on("minimize", () => {
-    win.minimize()
-})
-ipcMain.on("maximize", () => {
-    if (win.isMaximized()) {
-        win.restore()
-    } else {
-        win.maximize()
-    }   
-})
-ipcMain.on("close", () => {
-    win.close()
-})
+function mandaEvento() {
+    //win.webContents.openDevTools()
+    //win.webContents.send("provaMenu")
+    menu.getMenuItemById("about").enabled = false
+}

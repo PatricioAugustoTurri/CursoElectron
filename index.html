@@ -24,59 +24,13 @@
 </head>
 
 <body>
-    <div class="menu">
-        <button title="minimize" id="minimizeBtn" class="menu-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-            </svg>
-        </button>
-        <button title="maximize" id="maximizeBtn" class="menu-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3 8.25V18a2.25 2.25 0 0 0 2.25 2.25h13.5A2.25 2.25 0 0 0 21 18V8.25m-18 0V6a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 6v2.25m-18 0h18M5.25 6h.008v.008H5.25V6ZM7.5 6h.008v.008H7.5V6Zm2.25 0h.008v.008H9.75V6Z" />
-            </svg>
-        </button>
-        <button title="clouse" id="closeBtn" class="menu-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
     <h1>Webp Converter</h1>
-    <button id="bottone">Invia</button>
-    <span id="messaggio"></span>
-
     <script>
         const { ipcRenderer } = require("electron")
 
-        const bottone = document.getElementById("bottone");
-
-        const minimizeBtn = document.getElementById("minimizeBtn");
-        const maximizeBtn = document.getElementById("maximizeBtn");
-        const closeBtn = document.getElementById("closeBtn");
-        minimizeBtn.addEventListener("click", () => {
-            ipcRenderer.send("minimize")
+        ipcRenderer.on("provaMenu", () => {
+            console.log("evento")
         })
-        maximizeBtn.addEventListener("click", () => {
-            ipcRenderer.send("maximize")
-        })
-        closeBtn.addEventListener("click", () => {
-            ipcRenderer.send("close")
-        })
-
-        bottone.addEventListener("click", converterImage);
-
-        function converterImage() {
-            ipcRenderer.send("send-image",)
-        }
-
-        ipcRenderer.on("convert-image", () => {
-            document.getElementById("messaggio").innerText = "Imagine convertita con successo!"
-        })
-
     </script>
 </body>
 
