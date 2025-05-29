@@ -25,9 +25,14 @@
 
 <body>
     <h1>Webp Converter</h1>
+    <button id="not">Notification</button>
     <h2 id="prima"></h2>
     <script>
         const { ipcRenderer } = require("electron")
+        const not = document.getElementById("not")
+        not.addEventListener("click", () => {
+            ipcRenderer.send("notificacion")
+        })
 
         ipcRenderer.on("primera", () => {
             document.getElementById("prima").innerHTML = "Gracias por el formulario."
